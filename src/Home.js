@@ -5,7 +5,7 @@ const Home = () => {
   const { posts } = useOutletContext();
 
   return (
-    <main className="min-h-screen bg-gray-100 p-4">
+    <main className="min-h-screen bg-gray-100 p-4 rounded">
       {posts.length ? (
         <Feed posts={posts} />
       ) : (

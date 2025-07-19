@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 import TheNavbar from "../Navbar";
 import Footer from "../Footer";
+import NewPost from "../NewPost";
 
 const GuestLayout = () => {
   const [posts, setPosts] = useState([
@@ -9,39 +10,38 @@ const GuestLayout = () => {
       id: 1,
       title: "My First Post",
       datetime: "July 01, 2021 11:17:36 AM",
-      body: "Made a video about Tesla Q1 results and broke down the financials.",
-    },
-    {
-      id: 2,
-      title: "React vs Vue - A Developer's Perspective",
-      datetime: "August 15, 2021 09:32:10 AM",
-      body: "Shared my experience building apps in both React and Vue, comparing their strengths.",
-    },
-    {
-      id: 3,
-      title: "My Freelance Journey Begins",
-      datetime: "September 05, 2021 04:45:22 PM",
-      body: "Just landed my first freelance web development project. Super excited!",
-    },
-    {
-      id: 4,
-      title: "Learning TypeScript",
-      datetime: "October 10, 2021 01:12:48 PM",
-      body: "Started learning TypeScript to level up my JavaScript skills and improve code quality.",
-    },
-    {
-      id: 5,
-      title: "Productivity Tools I Love",
-      datetime: "November 22, 2021 08:00:00 AM",
-      body: "Wrote a blog post about the tools I use daily to stay productive—Notion, VS Code, and Trello.",
+      body: "This is my first sample blog post.",
     },
   ]);
+
+  const [postTitle, setPostTitle] = useState("");
+  const [postBody, setPostBody] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const id = posts.length ? posts[posts.length - 1].id + 1 : 1;
+    const datetime = new Date().toLocaleString();
+    const newPost = { id, title: postTitle, datetime, body: postBody };
+    const updatedPosts = [...posts, newPost];
+    setPosts(updatedPosts);
+    setPostTitle("");
+    setPostBody("");
+  };
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-300">
       <TheNavbar />
-      <main className="flex-grow px-4 py-6">
-        <Outlet context={{ posts }} />
+      <main className="flex-grow ">
+        <Outlet
+          context={{
+            posts,
+            handleSubmit,
+            postTitle,
+            setPostTitle,
+            postBody,
+            setPostBody,
+          }}
+        />
       </main>
       <Footer />
     </div>
