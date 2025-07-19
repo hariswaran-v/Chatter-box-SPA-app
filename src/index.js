@@ -1,12 +1,31 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+import GuestLayout from "./Layout/GuestLayout";
+import Home from "./Home";
+import PostPage from "./PostPage";
+import NewPost from "./NewPost";
+import About from "./About";
+import Missing from "./Missing";
+import "./index.css";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <GuestLayout />,
+    errorElement: <Missing />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: "posts", element: <PostPage /> },
+      { path: "newpost", element: <NewPost /> },
+      { path: "about", element: <About /> },
+    ],
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
- 
