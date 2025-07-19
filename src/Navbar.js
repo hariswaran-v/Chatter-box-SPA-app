@@ -70,7 +70,7 @@ const Navbar = () => {
           <input
             type="text"
             placeholder="Search..."
-            className="w-full px-2 py-1 rounded-md text-sm text-black"
+            className="w-full px-2 py-1 rounded-md text-sm text-black outline-none"
           />
         </div>
       )}
